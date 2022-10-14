@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:00 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/10/14 19:48:35 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/10/14 19:52:36 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	*ph_monitor(void *arg)
 			pthread_mutex_lock(&philo->info->print);
 			if (get_time() - philo[i].last_eat >= philo->info->t_die)
 			{
+				philo->info->ph_end = 1;
 				ph_print(&philo[i], DEAD);
 				return (NULL);
 			}
