@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:00 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/10/14 18:06:00 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/10/14 18:13:07 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void ph_clear(t_philo *philo)
 	i = 0;
 	while (i < philo->info->n_philo)
 	{
+		philo[i].info = NULL;
+		philo[i].next = NULL;
 		pthread_mutex_destroy(&philo[i].forks);
 		i++;
 	}
