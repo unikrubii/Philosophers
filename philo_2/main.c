@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:00 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/10/14 19:54:56 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/10/14 19:58:32 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void ph_clear(t_philo *philo)
 		pthread_mutex_destroy(&philo[i].forks);
 		i++;
 	}
-	pthread_mutex_destroy(&philo->info->print);
 	free(philo);
 }
 
@@ -97,5 +96,6 @@ int	main(int ac, char **av)
 	// pthread_create(&th[i], NULL, ph_monitor, philo[i]);
 	// pthread_join(th, NULL);
 	ph_clear(philo);
+	pthread_mutex_destroy(&info.print);
 	return (0);
 }

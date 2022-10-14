@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 22:40:14 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/10/14 19:52:48 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/10/14 19:56:56 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ static void	*ph_life(void *arg)
 		if (philo->info->ph_end)
 			return (NULL);
 		ph_eat(philo);
-		usleep(100);
+		// usleep(100);
+		if (philo->info->ph_end)
+			return (NULL);
 		ph_sleepthink(philo);
 	}
 	return (NULL);
