@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:00 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/10/14 18:41:35 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/10/14 19:46:04 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,14 @@ int	main(int ac, char **av)
 		return (1);
 	ph_routine(philo);
 	th = malloc(sizeof(pthread_t) * info.n_philo);
-	// ph_monitor(philo);
-	i = 0;
-	while (i < info.n_philo)
-	{
-		pthread_create(&th[i], NULL, ph_monitor, &philo[i]);
-		pthread_detach(th[i]);
-		i++;
-	}
+	ph_monitor(philo);
+	// i = 0;
+	// while (i < info.n_philo)
+	// {
+	// 	pthread_create(&th[i], NULL, ph_monitor, &philo[i]);
+	// 	pthread_detach(th[i]);
+	// 	i++;
+	// }
 	// pthread_create(&th[i], NULL, ph_monitor, philo[i]);
 	// pthread_join(th, NULL);
 	ph_clear(philo);
