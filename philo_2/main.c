@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:00 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/10/14 19:46:04 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/10/14 19:48:35 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	main(int ac, char **av)
 	if (!philo)
 		return (1);
 	ph_routine(philo);
-	th = malloc(sizeof(pthread_t) * info.n_philo);
+	// th = malloc(sizeof(pthread_t) * info.n_philo);
 	ph_monitor(philo);
 	// i = 0;
 	// while (i < info.n_philo)
