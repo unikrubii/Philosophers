@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ph_print.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sthitiku <sthitiku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:32:55 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/10/14 21:44:38 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/10/15 10:30:29 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ void	ph_print(t_philo *philo, int code)
 {
 	size_t	time;
 
-	// pthread_mutex_lock(&philo->info->print);
+	pthread_mutex_lock(&philo->info->print);
 	time = get_time() - philo->info->start;
-	// printf(CYAN"%ld ms " PUR"%d "RES, time, philo->id);
 	if (code == FORK)
 		printf(CYAN"%6zu ms " PUR"%4d "RES "has taken a fork\n", \
 			time, philo->id);
@@ -51,5 +50,5 @@ void	ph_print(t_philo *philo, int code)
 	else if (code == DEAD)
 		printf(CYAN"%6zu ms " PUR"%4d " RED"died\n"RES, \
 			time, philo->id);
-	// pthread_mutex_unlock(&philo->info->print);
+	pthread_mutex_unlock(&philo->info->print);
 }

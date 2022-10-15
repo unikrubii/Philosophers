@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sthitiku <sthitiku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:00 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/10/15 00:01:15 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/10/15 10:30:17 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	check_eat(t_philo *philo)
 	int	i;
 
 	i = 0;
-	
 	while (i < philo->info->n_philo)
 	{
 		if (philo[i].ate < philo->info->meal || philo->info->meal == -1)
@@ -54,7 +53,7 @@ void	*ph_monitor(void *arg)
 	return (NULL);
 }
 
-void ph_clear(t_philo *philo)
+void	ph_clear(t_philo *philo)
 {
 	int	i;
 
@@ -69,8 +68,8 @@ void ph_clear(t_philo *philo)
 
 int	main(int ac, char **av)
 {
-	t_info	info;
-	t_philo	*philo;
+	t_info		info;
+	t_philo		*philo;
 	pthread_t	*th;
 	int			i;
 
@@ -83,17 +82,7 @@ int	main(int ac, char **av)
 	if (!philo)
 		return (1);
 	ph_routine(philo);
-	// th = malloc(sizeof(pthread_t) * info.n_philo);
 	ph_monitor(philo);
-	// i = 0;
-	// while (i < info.n_philo)
-	// {
-	// 	pthread_create(&th[i], NULL, ph_monitor, &philo[i]);
-	// 	pthread_detach(th[i]);
-	// 	i++;
-	// }
-	// pthread_create(&th[i], NULL, ph_monitor, philo[i]);
-	// pthread_join(th, NULL);
 	ph_clear(philo);
 	pthread_mutex_destroy(&info.print);
 	return (0);

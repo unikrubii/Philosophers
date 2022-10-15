@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ph_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sthitiku <sthitiku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 04:13:25 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/10/14 17:03:50 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/10/15 10:28:12 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,16 @@ int	args_valid(int ac, char **av)
 	return (1);
 }
 
+t_philo	*ph_create2(t_info *info, t_philo *philo)
+{
+	int	i;
+
+	i = -1;
+	while (++i < info->n_philo)
+		philo[i].next = &philo[(i + 1 % info->n_philo)];
+	return (philo);
+}
+
 t_philo	*ph_create(t_info *info)
 {
 	t_philo	*philo;
@@ -97,8 +107,5 @@ t_philo	*ph_create(t_info *info)
 		}
 		i++;
 	}
-	i = -1;
-	while (++i < info->n_philo)
-		philo[i].next = &philo[(i + 1 % info->n_philo)];
-	return (philo);
+	return (ph_create2(info, philo));
 }
