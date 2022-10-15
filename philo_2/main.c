@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:00 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/10/14 19:58:32 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/10/15 00:01:15 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,15 @@ void	*ph_monitor(void *arg)
 		{
 			if (check_eat(philo))
 				return (NULL);
-			pthread_mutex_lock(&philo->info->print);
 			if (get_time() - philo[i].last_eat >= philo->info->t_die)
 			{
 				philo->info->ph_end = 1;
 				ph_print(&philo[i], DEAD);
 				return (NULL);
 			}
-			pthread_mutex_unlock(&philo->info->print);
 			i++;
 		}
+		usleep(500);
 	}
 	return (NULL);
 }

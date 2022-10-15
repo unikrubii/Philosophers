@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:32:55 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/10/14 19:59:02 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/10/14 21:44:38 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,19 @@ void	ph_print(t_philo *philo, int code)
 	time = get_time() - philo->info->start;
 	// printf(CYAN"%ld ms " PUR"%d "RES, time, philo->id);
 	if (code == FORK)
-		printf(CYAN"\t%zu ms " PUR"%d "RES "has taken a fork\n", \
-			get_time() - philo->info->start, philo->id);
+		printf(CYAN"%6zu ms " PUR"%4d "RES "has taken a fork\n", \
+			time, philo->id);
 	else if (code == EAT)
-		printf(CYAN"\t%zu ms " PUR"%d " GREEN"is eating\n"RES, \
-			get_time() - philo->info->start, philo->id);
+		printf(CYAN"%6zu ms " PUR"%4d " GREEN"is eating\n"RES, \
+			time, philo->id);
 	else if (code == SLEEP)
-		printf(CYAN"\t%zu ms " PUR"%d " BLUE"is sleeping\n"RES, \
-			get_time() - philo->info->start, philo->id);
+		printf(CYAN"%6zu ms " PUR"%4d " BLUE"is sleeping\n"RES, \
+			time, philo->id);
 	else if (code == THINK)
-		printf(CYAN"\t%zu ms " PUR"%d " YELLOW"is thinking\n"RES, \
-			get_time() - philo->info->start, philo->id);
+		printf(CYAN"%6zu ms " PUR"%4d " YELLOW"is thinking\n"RES, \
+			time, philo->id);
 	else if (code == DEAD)
-		printf(CYAN"\t%zu ms " PUR"%d " RED"died\n"RES, \
-			get_time() - philo->info->start, philo->id);
+		printf(CYAN"%6zu ms " PUR"%4d " RED"died\n"RES, \
+			time, philo->id);
 	// pthread_mutex_unlock(&philo->info->print);
 }
