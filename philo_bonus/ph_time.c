@@ -6,11 +6,11 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 22:43:56 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/10/25 00:36:40 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/10/19 09:05:05 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 size_t	get_time(void)
 {

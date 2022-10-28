@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 22:40:14 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/10/29 02:20:59 by sthitiku         ###   ########.fr       */
+/*   Created: 2022/10/29 01:21:10 by sthitiku          #+#    #+#             */
+/*   Updated: 2022/10/29 03:19:56 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 static int	ph_sleepthink(t_philo *philo)
 {
@@ -26,8 +26,8 @@ static int	ph_sleepthink(t_philo *philo)
 
 static int	ph_eat(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->next->forks);
-	pthread_mutex_lock(&philo->forks);
+	sem_wait(philo->info->forks);
+	sem_wait(philo->info->forks);
 	if (philo->info->ph_end)
 		return (1);
 	ph_print(philo, FORK);
@@ -35,50 +35,51 @@ static int	ph_eat(t_philo *philo)
 		return (1);
 	ph_print(philo, FORK);
 	philo->last_eat = get_time();
-	philo->ate++;
 	if (philo->info->ph_end)
 		return (1);
 	ph_print(philo, EAT);
+	philo->ate++;
 	ph_mysleep(philo->info->t_eat);
-	pthread_mutex_unlock(&philo->next->forks);
-	pthread_mutex_unlock(&philo->forks);
+	sem_post(philo->info->forks);
+	sem_post(philo->info->forks);
 	return (0);
 }
 
-static void	*ph_life(void *arg)
+static void	*ph_life(t_philo *philo)
 {
-	t_philo	*philo;
-
-	philo = (t_philo *)arg;
 	while (1)
 	{
 		if (ph_eat(philo))
 			return (NULL);
 		if (ph_sleepthink(philo))
 			return (NULL);
-		usleep(500);
+		usleep(200);
 	}
-	return (NULL);
 }
 
 int	ph_routine(t_philo *philo)
 {
 	size_t	i;
 
-	i = 0;
 	philo->info->start = get_time();
+	i = 0;
 	while (i < philo->info->n_philo)
 	{
-		if (pthread_create(&philo[i].th, NULL, &ph_life, &philo[i]))
-			return (ph_error(THREAD_ERROR));
-		if (pthread_detach(philo[i].th))
-			return (ph_error(THREAD_ERROR));
-		i += 2;
-		if (i >= philo->info->n_philo && i % 2 == 0)
+		sem_wait(philo->info->dead);
+		if (philo->info->meal != -1)
+			sem_wait(philo->info->s_meal);
+		philo[i].pid = fork();
+		if (philo[i].pid < 0)
+			return (1);
+		if (philo[i].pid == 0)
 		{
-			i = 1;
-			usleep(500);
+			philo[i].last_eat = get_time();
+			pthread_create(&philo[i].th, NULL, ph_monitor, &philo[i]);
+			pthread_detach(philo[i].th);
+			ph_life(&philo[i]);
+			return (0);
 		}
+		i++;
 	}
 	return (0);
 }

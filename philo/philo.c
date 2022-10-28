@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sthitiku <sthitiku@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:57:00 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/10/15 10:30:17 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/10/29 03:13:44 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_eat(t_philo *philo)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (i < philo->info->n_philo)
@@ -30,23 +30,26 @@ int	check_eat(t_philo *philo)
 void	*ph_monitor(void *arg)
 {
 	t_philo	*philo;
-	int		i;
+	size_t	i;
 
 	philo = (t_philo *)arg;
 	while (1)
 	{
-		i = 0;
-		while (i < philo->info->n_philo)
+		i = -1;
+		while (++i < philo->info->n_philo)
 		{
 			if (check_eat(philo))
+			{
+				philo->info->ph_end = 1;
+				printf(YELLOW"All philosophers have eaten the meals\n"RES);
 				return (NULL);
+			}
 			if (get_time() - philo[i].last_eat >= philo->info->t_die)
 			{
 				philo->info->ph_end = 1;
 				ph_print(&philo[i], DEAD);
 				return (NULL);
 			}
-			i++;
 		}
 		usleep(500);
 	}
@@ -55,7 +58,7 @@ void	*ph_monitor(void *arg)
 
 void	ph_clear(t_philo *philo)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (i < philo->info->n_philo)
@@ -70,8 +73,6 @@ int	main(int ac, char **av)
 {
 	t_info		info;
 	t_philo		*philo;
-	pthread_t	*th;
-	int			i;
 
 	if (!args_valid(ac, av))
 		return (ph_error(ARG_ERROR));

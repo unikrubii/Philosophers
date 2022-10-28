@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ph_time.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 22:43:56 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/10/25 00:36:40 by sthitiku         ###   ########.fr       */
+/*   Created: 2022/10/19 08:58:02 by sthitiku          #+#    #+#             */
+/*   Updated: 2022/10/29 01:52:47 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-size_t	get_time(void)
+int	main(int ac, char **av)
 {
-	struct timeval	tv;
-	size_t			time;
+	t_info	info;
+	t_philo	*philo;
 
-	gettimeofday(&tv, NULL);
-	time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
-	return (time);
-}
-
-void	ph_mysleep(size_t time)
-{
-	size_t	start;
-
-	start = get_time();
-	while (get_time() - start < time)
-		usleep(1);
+	if (!args_valid(ac, av))
+		return (ph_error(ARG_ERROR));
+	get_args(&info, ac, av);
+	if (info.n_philo == 0)
+		return (NO_ERROR);
+	philo = create_philo(&info);
+	if (!philo)
+		return (ph_error(ALLOC_ERROR));
+	printf("meal: %d\n", philo->info->meal);
+	if (ph_routine(philo))
+		return (ph_error(FORK_ERROR));
+	ph_clear(philo);
 }
