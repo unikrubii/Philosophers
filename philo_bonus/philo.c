@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 08:58:02 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/10/29 01:52:47 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/10/29 03:40:35 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	main(int ac, char **av)
 	philo = create_philo(&info);
 	if (!philo)
 		return (ph_error(ALLOC_ERROR));
-	printf("meal: %d\n", philo->info->meal);
 	if (ph_routine(philo))
 		return (ph_error(FORK_ERROR));
 	ph_clear(philo);
